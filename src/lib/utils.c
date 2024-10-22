@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <dirent.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include "constants.c"
@@ -371,6 +372,11 @@ void remove_extra_empty_lines(const char* filepath) {
 void initialize(){
     // Create a directory to store the database
     const char *directory_name = DB_DIRECTORY;
+    //check for the config file
+    if(access("config", F_OK) != 0) {
+      printf("=> Config file not found, creating one...\n");
+      writeToFile("config", DEFAULT_CONFIG);
+    }
     // Create the directory
     if (create_directory(directory_name) == -1) {
 	perror("Failed to create directory");

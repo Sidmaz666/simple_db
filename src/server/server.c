@@ -22,6 +22,8 @@ void handle_sigint(int sig) {
 }
 
 void start_server(void) {
+    // Create necessary directories
+    initialize();
     int new_socket;
     struct sockaddr_in address;
     int addrlen = sizeof(address);
@@ -80,8 +82,6 @@ void start_server(void) {
         exit(EXIT_FAILURE);
     }
 
-    // Create necessary directories
-    initialize();
     printf("=> Simple DB Started on port %d\n", PORT);
 
     while (1) {

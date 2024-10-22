@@ -15,10 +15,6 @@ int createDB(const char *database_name) {
 
     sanitize_str(database_name, sanitized_name, sizeof(sanitized_name), ".db");
     filename = database_path(sanitized_name);
-    //check for the config file
-    if(access("config", F_OK) != 0) {
-      writeToFile("config", DEFAULT_CONFIG);
-    }
     // Check if the database file already exists
     if (access(filename, F_OK) == 0) {
         return 0; // File exists, return 0
